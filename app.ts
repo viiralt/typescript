@@ -73,8 +73,14 @@ let userData: { name: string; age: number } = {
   age: 98
 };
 
+// type alias
+type Complex = {
+  data: number[];
+  output: (all: boolean) => number[];
+};
+
 // complex objs
-let complex: { data: number[]; output: (all: boolean) => number[] } = {
+let complex: Complex = {
   data: [1, 513.6, 99],
   output: function(all: boolean): number[] {
     return this.data;
