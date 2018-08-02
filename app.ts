@@ -25,3 +25,14 @@ hobbies; //?
 // tuples - mixed, sequential type
 let address: [string, number] = ['somestreet', 132 - 22];
 address = [132 - 22, 'bububu'];
+
+// enums - serialising, must be capped!
+enum Color {
+  grey,
+  green,
+  red
+}
+Color; //?
+
+let myColor: Color = Color.red;
+myColor; //?
