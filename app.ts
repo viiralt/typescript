@@ -57,3 +57,29 @@ const sayHello = (text: void) => {
 const multiply = (value1: number, value2: number) => {
   return value1 * value2;
 };
+
+multiply(4, 3); //?
+multiply('sven', true);
+
+// func types
+let myMultiply: (val1: number, val2: number) => number;
+myMultiply = sayHello;
+myMultiply = multiply;
+myMultiply(5, 5); //?
+
+// objs
+let userData: { name: string; age: number } = {
+  name: 'Henri',
+  age: 98
+};
+
+// complex objs
+let complex: { data: number[]; output: (all: boolean) => number[] } = {
+  data: [1, 513.6, 99],
+  output: function(all: boolean): number[] {
+    return this.data;
+  }
+};
+
+complex; //?
+complex = true;
