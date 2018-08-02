@@ -36,3 +36,24 @@ Color; //?
 
 let myColor: Color = Color.red;
 myColor; //?
+
+// any - most flexible, use as exception!
+let car: any = 'hippo'; //?
+car = { boom: 1 };
+car; //?
+
+// functions
+const returnName = (myName: string) => {
+  return myName;
+};
+returnName('benny'); //?
+
+// void - in case a func doesn't return
+const sayHello = (text: void) => {
+  console.log('hola!');
+};
+
+// argument types
+const multiply = (value1: number, value2: number) => {
+  return value1 * value2;
+};
