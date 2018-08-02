@@ -1,29 +1,23 @@
 // string
-let myName = 'Henri';
-myName = 28;
+let myName: string = 'Henri';
 
 // number
-let myNumber = 24;
-myNumber = 'Henri';
+let myNumber: number = 24;
 
 // boolean
-let hasHobbies: string[];
-hasHobbies = 1;
-
-// assign types
-let myRealAge: number;
-myRealAge = '23';
+let hasHobbies: boolean = true;
 
 // arrays
-hasHobbies = ['cooking', 'fitness', 'photography'];
-hasHobbies[1]; //?
-typeof hasHobbies; //?
+const hobbies: string[] = ['cooking', 'fitness', 'photography'];
+hobbies[1]; //?
+typeof hobbies; //?
 
-let hobbies: any[] = [123, 'boom', true];
+let myHobbies: any[] = [123, 'boom', true];
 hobbies; //?
-// tuples - mixed, sequential type
+
+// tuples - mixed, SEQUENTIAL type
 let address: [string, number] = ['somestreet', 132 - 22];
-address = [132 - 22, 'bububu'];
+// address = [132 - 22, 'bububu']; nope
 
 // enums - serialising, must be capped!
 enum Color {
@@ -36,7 +30,7 @@ Color; //?
 let myColor: Color = Color.red;
 myColor; //?
 
-// any - most flexible, use as exception!
+// any - most flexible, use as exception only!
 let car: any = 'hippo'; //?
 car = { boom: 1 };
 car; //?
@@ -48,21 +42,19 @@ const returnName = (myName: string) => {
 returnName('benny'); //?
 
 // void - in case a func doesn't return
-const sayHello = (text: void) => {
-  console.log('hola!');
+const warning = (): void => {
+  console.log('shazam');
 };
 
 // argument types
 const multiply = (value1: number, value2: number) => {
   return value1 * value2;
 };
-
 multiply(4, 3); //?
-multiply('sven', true);
 
 // func types
 let myMultiply: (val1: number, val2: number) => number;
-myMultiply = sayHello;
+//myMultiply = sayHello;
 myMultiply = multiply;
 myMultiply(5, 5); //?
 
@@ -81,19 +73,19 @@ type Complex = {
 // complex objs
 let complex: Complex = {
   data: [1, 513.6, 99],
-  output: function(all: boolean): number[] {
+  output: function(): number[] {
     return this.data;
   }
 };
 
 complex; //?
-complex = true;
+// complex = true; nope
 
 // union types - either or
 let myNumberOrString: number | string;
 myNumberOrString = '21';
 myNumberOrString = 21;
-myNumberOrString = false;
+// myNumberOrString = false; nope
 
 // check types
 let finalValue = 'a string';
@@ -102,12 +94,31 @@ if (typeof finalValue == 'string') {
 }
 
 // never
-const neverReturns = (): never => {
+/* const neverReturns = (): never => {
   throw new Error('wooooh, something is wrong');
 };
-
-neverReturns();
+neverReturns(); */
 
 // nullable tsconfig: strictNullChecks: true
 let canBeNull: number | null = 12;
 canBeNull = null;
+
+// default params
+const countdown = (start: number = 10): void => {
+  while (start > 0) {
+    start--;
+  }
+  console.log('finished', start);
+};
+countdown(32); //?
+
+// spread - flatten an arr, passed as a single arg?
+const nums = [1, 99, 31105.5, 10];
+const newNums = [...nums, 50485, 2341, 1]; //?
+
+// rest - multiple args turned into an arr of vals
+const makeArr = (...args: number[]) => {
+  return args;
+};
+
+makeArr(1, 2, 14941, 32); //?
