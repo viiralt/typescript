@@ -21,7 +21,6 @@ typeof hasHobbies; //?
 
 let hobbies: any[] = [123, 'boom', true];
 hobbies; //?
-
 // tuples - mixed, sequential type
 let address: [string, number] = ['somestreet', 132 - 22];
 address = [132 - 22, 'bububu'];
@@ -89,3 +88,26 @@ let complex: Complex = {
 
 complex; //?
 complex = true;
+
+// union types - either or
+let myNumberOrString: number | string;
+myNumberOrString = '21';
+myNumberOrString = 21;
+myNumberOrString = false;
+
+// check types
+let finalValue = 'a string';
+if (typeof finalValue == 'string') {
+  console.log(`oh weee, yeas, it's a string`);
+}
+
+// never
+const neverReturns = (): never => {
+  throw new Error('wooooh, something is wrong');
+};
+
+neverReturns();
+
+// nullable tsconfig: strictNullChecks: true
+let canBeNull: number | null = 12;
+canBeNull = null;
