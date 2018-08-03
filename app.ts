@@ -185,3 +185,22 @@ class Helpers {
 }
 2 * Helpers.PI; //?
 Helpers.calcCircumference(21); //?
+
+// abastract classes - used purely for extending basic setup (archtype)
+abstract class Project {
+  projectName: string = 'default';
+  budget: number = 10000;
+  abstract changeName(name: string): void;
+  calcBudget() {
+    return this.budget * 4;
+  }
+}
+
+class CoolProject extends Project {
+  changeName(name: string): void {
+    this.projectName = name;
+  }
+}
+const evenCoolerProject = new CoolProject();
+evenCoolerProject.projectName = 'hypercool project';
+evenCoolerProject; //?
