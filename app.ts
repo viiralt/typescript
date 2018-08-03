@@ -120,5 +120,68 @@ const newNums = [...nums, 50485, 2341, 1]; //?
 const makeArr = (...args: number[]) => {
   return args;
 };
-
 makeArr(1, 2, 14941, 32); //?
+
+// classes
+class Person {
+  name: string;
+  private type: string;
+  protected age: number = 98; // descendants of Person have access to a protected prop
+
+  constructor(name: string, public username: string) {
+    this.name = name;
+  }
+
+  printAge() {
+    console.log(this.age);
+  }
+
+  protected setType(type: string) {
+    this.type = type;
+    console.log(this.type);
+  }
+}
+const mickey = new Person('Mickey', 'mick'); //?
+mickey.printAge();
+/* mickey.setType('Hobgoblin'); */
+
+class Henri extends Person {
+  name = 'Henri';
+  constructor(username: string) {
+    super('Henri', username);
+    this.age = 35;
+    // console.log(this.type);
+  }
+}
+const henri = new Henri('six_sigma');
+henri;
+
+// getters & setters
+class Plant {
+  private _species: string = 'default';
+
+  get species() {
+    return this._species;
+  }
+
+  set species(value: string) {
+    if (value.length > 3) {
+      this._species = value;
+    } else {
+      this._species = 'default';
+    }
+  }
+}
+const plant = new Plant();
+plant.species = 'orchid';
+plant;
+
+// static props & methods - useful for helpers
+class Helpers {
+  static PI: number = 3.41;
+  static calcCircumference(diameter: number): number {
+    return this.PI * diameter;
+  }
+}
+2 * Helpers.PI; //?
+Helpers.calcCircumference(21); //?

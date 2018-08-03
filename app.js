@@ -94,3 +94,60 @@ const makeArr = (...args) => {
     return args;
 };
 makeArr(1, 2, 14941, 32); //?
+// classes
+class Person {
+    constructor(name, username) {
+        this.username = username;
+        this.age = 98; // descendants of Person have access to a protected prop
+        this.name = name;
+    }
+    printAge() {
+        console.log(this.age);
+    }
+    setType(type) {
+        this.type = type;
+        console.log(this.type);
+    }
+}
+const mickey = new Person('Mickey', 'mick'); //?
+mickey.printAge();
+/* mickey.setType('Hobgoblin'); */
+class Henri extends Person {
+    constructor(username) {
+        super('Henri', username);
+        this.name = 'Henri';
+        this.age = 35;
+        // console.log(this.type);
+    }
+}
+const henri = new Henri('six_sigma');
+henri;
+// getters & setters
+class Plant {
+    constructor() {
+        this._species = 'default';
+    }
+    get species() {
+        return this._species;
+    }
+    set species(value) {
+        if (value.length > 3) {
+            this._species = value;
+        }
+        else {
+            this._species = 'default';
+        }
+    }
+}
+const plant = new Plant();
+plant.species = 'orchid';
+plant;
+// static props & methods - useful for helpers
+class Helpers {
+    static calcCircumference(diameter) {
+        return this.PI * diameter;
+    }
+}
+Helpers.PI = 3.41;
+2 * Helpers.PI; //?
+Helpers.calcCircumference(21); //?
