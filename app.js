@@ -169,3 +169,17 @@ class CoolProject extends Project {
 const evenCoolerProject = new CoolProject();
 evenCoolerProject.projectName = 'hypercool project';
 evenCoolerProject; //?
+// private constructors / singletons
+class JustOne {
+    constructor(name) {
+        this.name = name;
+    }
+    static getInstance() {
+        if (!JustOne.instance) {
+            JustOne.instance = new JustOne('the only one');
+        }
+        return JustOne.instance;
+    }
+}
+// let wrong = new JustOne('the only one');
+let right = JustOne.getInstance(); //?
