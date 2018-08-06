@@ -169,17 +169,18 @@ class CoolProject extends Project {
 const evenCoolerProject = new CoolProject();
 evenCoolerProject.projectName = 'hypercool project';
 evenCoolerProject; //?
-// private constructors / singletons
+// private constructors / singletons / readonly
 class JustOne {
     constructor(name) {
         this.name = name;
-    }
+    } // is accessible
     static getInstance() {
         if (!JustOne.instance) {
+            // if doesn't exist, create singleton
             JustOne.instance = new JustOne('the only one');
         }
         return JustOne.instance;
     }
 }
-// let wrong = new JustOne('the only one');
+// let wrong = new JustOne('the only one'); can't instantiate from outside
 let right = JustOne.getInstance(); //?

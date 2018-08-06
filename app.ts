@@ -1,5 +1,5 @@
 // string
-let myName: string = 'Henri';
+let myfirstName: string = 'Henri';
 
 // number
 let myNumber: number = 24;
@@ -36,10 +36,10 @@ car = { boom: 1 };
 car; //?
 
 // functions
-const returnName = (myName: string) => {
-  return myName;
+const returnfirstName = (myfirstName: string) => {
+  return myfirstName;
 };
-returnName('benny'); //?
+returnfirstName('benny'); //?
 
 // void - in case a func doesn't return
 const warning = (): void => {
@@ -59,8 +59,8 @@ myMultiply = multiply;
 myMultiply(5, 5); //?
 
 // objs
-let userData: { name: string; age: number } = {
-  name: 'Henri',
+let userData: { firstName: string; age: number } = {
+  firstName: 'Henri',
   age: 98
 };
 
@@ -124,12 +124,12 @@ makeArr(1, 2, 14941, 32); //?
 
 // classes
 class Person {
-  name: string;
+  firstName: string;
   private type: string;
   protected age: number = 98; // descendants of Person have access to a protected prop
 
-  constructor(name: string, public username: string) {
-    this.name = name;
+  constructor(firstName: string, public userfirstName: string) {
+    this.firstName = firstName;
   }
 
   printAge() {
@@ -146,9 +146,9 @@ mickey.printAge();
 /* mickey.setType('Hobgoblin'); */
 
 class Henri extends Person {
-  name = 'Henri';
-  constructor(username: string) {
-    super('Henri', username);
+  firstName = 'Henri';
+  constructor(userfirstName: string) {
+    super('Henri', userfirstName);
     this.age = 35;
     // console.log(this.type);
   }
@@ -188,34 +188,71 @@ Helpers.calcCircumference(21); //?
 
 // abastract classes - used purely for extending basic setup (archtype)
 abstract class Project {
-  projectName: string = 'default';
+  projectfirstName: string = 'default';
   budget: number = 10000;
-  abstract changeName(name: string): void;
+  abstract changefirstName(firstName: string): void;
   calcBudget() {
     return this.budget * 4;
   }
 }
 
 class CoolProject extends Project {
-  changeName(name: string): void {
-    this.projectName = name;
+  changefirstName(firstName: string): void {
+    this.projectfirstName = firstName;
   }
 }
 const evenCoolerProject = new CoolProject();
-evenCoolerProject.projectName = 'hypercool project';
+evenCoolerProject.projectfirstName = 'hypercool project';
 evenCoolerProject; //?
 
-// private constructors / singletons
+// private constructors / singletons / readonly
 class JustOne {
   private static instance: JustOne;
-  private constructor(public name: string) {}
+  private constructor(public readonly firstName: string) {} // is accessible
 
   static getInstance() {
     if (!JustOne.instance) {
+      // if doesn't exist, create singleton
       JustOne.instance = new JustOne('the only one');
     }
     return JustOne.instance;
   }
 }
-// let wrong = new JustOne('the only one');
+// let wrong = new JustOne('the only one'); can't instantiate from outside
 let right = JustOne.getInstance(); //?
+
+// interfaces - guarantee of existing props/methods
+interface firstNamedPerson {
+  firstName: string;
+  age?: number; // optional param ?:
+  [propName: string]: any; // if not sure what the props will be called
+  greet(lastName: string): void;
+}
+
+const greetPerson = (person: firstNamedPerson) => {
+  console.log(`hello, ${person.firstName}`);
+};
+
+const person = {
+  firstName: 'Henri',
+  age: 99,
+  hobbies: ['cooking', 'sports'],
+  greet(lastName: string) {
+    console.log(`hi there, I'm ${this.firstName} ${lastName}`);
+  }
+};
+
+greetPerson(person);
+person.greet('Limbojon!');
+
+class Person2 implements firstNamedPerson {
+  firstName: string;
+  greet(lastName: string) {
+    console.log(`hi there, I'm ${this.firstName} ${lastName}`);
+  }
+}
+
+const myPerson = new Person2();
+myPerson.firstName = 'John';
+
+myPerson.greet('anything'); //?
