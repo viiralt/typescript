@@ -256,3 +256,171 @@ const myPerson = new Person2();
 myPerson.firstName = 'John';
 
 myPerson.greet('anything'); //?
+
+// interface func types
+interface doubleValueFunc {
+  (number: number, number2: number): number;
+}
+
+let doubleFunc: doubleValueFunc;
+doubleFunc = function(val1: number, val2: number) {
+  return (val1 + val2) * 2;
+};
+doubleFunc(10, 20); //?
+
+// interface inheritance
+interface AgedPerson extends firstNamedPerson {
+  age: number;
+}
+
+const oldPerson: AgedPerson = {
+  age: 49,
+  firstName: 'Steve',
+  greet(lastName: string) {
+    console.log('hello');
+  }
+};
+oldPerson;
+oldPerson.greet('buuu');
+
+// simple generic
+const echo = (data: any) => {
+  return data;
+};
+echo('Henri'); //?
+
+// <T> designates a generitc
+const betterEcho = <T>(data: T) => {
+  return data;
+};
+betterEcho<number>(27); //?
+betterEcho<object>({ name: 'henri', age: 13 }); //?
+
+// built-in generics
+const testResults: Array<number> = [1.94, 51.515];
+testResults.push(23);
+testResults;
+// testResults.push('bu');
+console.log(testResults);
+
+const printAll = <T>(args: T[]) => {
+  args.map(el => console.log(el));
+};
+printAll<string>(['lul', 'bubu']); //?
+
+// generic types
+// a user-specified type of func that will return the input type
+const echo2: <T>(data: T) => T = betterEcho;
+echo2<string>('boom!'); //?
+
+// generic classes
+// type is generic, either a num or str
+class SimpleMath<T extends number | string> {
+  baseVal: T;
+  mutliplyVal: T;
+  calculate(): number {
+    return <number>this.baseVal * +this.mutliplyVal; // using + casts prop as enumerable type? == <number>
+  }
+}
+const simpleMath = new SimpleMath<number>();
+simpleMath.baseVal = 10;
+simpleMath.mutliplyVal = 30;
+simpleMath.calculate(); //?
+
+// decorators - funcs attached to smth
+const logged = (constructorFunc: Function) => {
+  console.log(constructorFunc);
+};
+
+@logged
+class Human {
+  constructor() {
+    console.log('hola!');
+  }
+}
+// factory decoratos
+const logging = (value: boolean) => {
+  return value ? logged : null;
+};
+
+@logging(false);
+class Car {}
+
+// advanced decorators
+const printable = (constructorFunc: Function) => {
+  constructorFunc.prototype.print = function() {
+    console.log(this);
+  };
+};
+
+@logging(true)
+@printable
+class Banana {
+  name = 'Musa acuminata';
+}
+const commonBanana = new Banana();
+commonBanana.print();
+
+// method decorators
+const editable = (value: boolean) => {
+  return function(target: any, propName: string, descriptor: PropertyDescriptor) {
+    descriptor.writable = value;
+  }
+}
+
+// prop decorators
+const overwritable = (value: boolean) => {
+  return function(target: any, propName: string): any {
+    const newDescriptor: PropertyDescriptor = {
+      writable: value
+    };
+    return newDescriptor;
+  }
+}
+
+class SomeProject {
+  @overwritable(true)
+  projectName: string;
+
+  constructor(name: string) {
+    this.projectName = name;
+  }
+  @editable(false)
+  calcBudget() {
+    console.log(1000);
+  }
+}
+
+const project = new SomeProject('hypercool project');
+project.calcBudget();
+project.calcBudget = function() {
+  console.log(2000); // non-editable, will not break but logs 1000 2x
+}
+project.calcBudget();
+
+// param decorator
+const printInfo = (target: any, methodName: string, paramIndex: number) => {
+  console.log(`target:${target}`);
+  console.log(`methodName:${methodName}`);
+  console.log(`paramIndex:${paramIndex}`);
+}
+
+class Course {
+  name: string;
+  
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  printStudentNumbers(mode: string, @printInfo printAll: boolean) {
+    if(printAll) {
+      console.log(10000);
+    } else {
+      console.log(2000);
+    }
+  }
+}
+
+const course = new Course('massively awesome course');
+course.printStudentNumbers('anything', true); 
+course.printStudentNumbers('anything', false); 

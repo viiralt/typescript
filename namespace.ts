@@ -11,4 +11,6 @@ namespace MyGeo {
 Object.keys(MyGeo); //?
 MyGeo.calculateRetangle(30, 23); //?
 
+// can also use a namespace inside a namespace e.g. MyGeo.Rectangle.calc();
+
 /// <reference path='circleMath.ts'/>
